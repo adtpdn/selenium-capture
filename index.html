@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selenium Test Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .thumbnail {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Selenium Test Results</h1>
+    <div id="gallery" class="gallery"></div>
+    <div id="modal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+
+    <script>
+        async function loadReport() {
+            const response = await fetch('report.md');
+            const text = await response.text();
+            const gallery = document.getElementById('gallery');
+            const imgRegex = /!\[Screenshot\]\((.*?)\)/g;
+            let match;
+            while ((match = imgRegex.exec(text)) !== null) {
+                const img = document.createElement('img');
+                img.src = match[1];
+                img.className = 'thumbnail';
+                img.onclick = function() {
+                    document.getElementById('modal').style.display = 'block';
+                    document.getElementById('modalImg').src = this.src;
+                }
+                gallery.appendChild(img);
+            }
+        }
+
+        document.querySelector('.close').onclick = function() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('modal')) {
+                document.getElementById('modal').style.display = 'none';
+            }
+        }
+
+        loadReport();
+    </script>
+</body>
+</html>
