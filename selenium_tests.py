@@ -12,8 +12,9 @@ from datetime import datetime
 
 # List of URLs to test
 urls = [
-    "https://example.com",
-    "https://example.org",
+    "https://adengroup.com",
+    "https://nx-park.com",
+    "https://adenenergies.com"
     # Add more URLs as needed
 ]
 
