@@ -10,12 +10,13 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             color: #333;
-            max-width: 1200px;
+            width: 70%;
             margin: 0 auto;
-            padding: 20px;
+            padding: 50px;
         }
         h1, h2 {
             text-align: center;
+            margin-bottom: 30px;
         }
         table {
             width: 100%;
@@ -25,15 +26,17 @@
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
-            text-align: left;
+            text-align: center;
         }
         th {
             background-color: #f2f2f2;
+            text-align: center;
         }
         .screenshot {
-            width: 200px;
-            height: auto;
+            width: 100px;
+            height: 100px;
             cursor: pointer;
+            object-fit: cover;
         }
         .modal {
             display: none;
@@ -80,7 +83,7 @@
     </div>
 
     <script>
-        const testResults = [{"timestamp": "2024-09-23 09:35:35", "results": [{"url": "https://adengroup.com", "browser": "chrome", "device": "desktop", "screenshot": "screenshots/adengroup.com_chrome_desktop_20240923_093017.png", "status": "Pass"}, {"url": "https://adengroup.com", "browser": "chrome", "device": "mobile", "screenshot": "screenshots/adengroup.com_chrome_mobile_20240923_093032.png", "status": "Pass"}, {"url": "https://adengroup.com", "browser": "firefox", "device": "desktop", "screenshot": "screenshots/adengroup.com_firefox_desktop_20240923_093051.png", "status": "Pass"}, {"url": "https://adengroup.com", "browser": "firefox", "device": "mobile", "screenshot": "screenshots/adengroup.com_firefox_mobile_20240923_093111.png", "status": "Pass"}, {"url": "https://adengroup.com", "browser": "edge", "device": "desktop", "screenshot": "screenshots/adengroup.com_edge_desktop_20240923_093146.png", "status": "Pass"}, {"url": "https://adengroup.com", "browser": "edge", "device": "mobile", "screenshot": "screenshots/adengroup.com_edge_mobile_20240923_093202.png", "status": "Pass"}, {"url": "https://nx-park.com", "browser": "chrome", "device": "desktop", "screenshot": "screenshots/nx-park.com_chrome_desktop_20240923_093218.png", "status": "Pass"}, {"url": "https://nx-park.com", "browser": "chrome", "device": "mobile", "screenshot": "screenshots/nx-park.com_chrome_mobile_20240923_093235.png", "status": "Pass"}, {"url": "https://nx-park.com", "browser": "firefox", "device": "desktop", "screenshot": "screenshots/nx-park.com_firefox_desktop_20240923_093253.png", "status": "Pass"}, {"url": "https://nx-park.com", "browser": "firefox", "device": "mobile", "screenshot": "screenshots/nx-park.com_firefox_mobile_20240923_093313.png", "status": "Pass"}, {"url": "https://nx-park.com", "browser": "edge", "device": "desktop", "screenshot": "screenshots/nx-park.com_edge_desktop_20240923_093339.png", "status": "Pass"}, {"url": "https://nx-park.com", "browser": "edge", "device": "mobile", "screenshot": "screenshots/nx-park.com_edge_mobile_20240923_093356.png", "status": "Pass"}, {"url": "https://adenenergies.com", "browser": "chrome", "device": "desktop", "screenshot": "screenshots/adenenergies.com_chrome_desktop_20240923_093412.png", "status": "Pass"}, {"url": "https://adenenergies.com", "browser": "chrome", "device": "mobile", "screenshot": "screenshots/adenenergies.com_chrome_mobile_20240923_093428.png", "status": "Pass"}, {"url": "https://adenenergies.com", "browser": "firefox", "device": "desktop", "screenshot": "screenshots/adenenergies.com_firefox_desktop_20240923_093445.png", "status": "Pass"}, {"url": "https://adenenergies.com", "browser": "firefox", "device": "mobile", "screenshot": "screenshots/adenenergies.com_firefox_mobile_20240923_093502.png", "status": "Pass"}, {"url": "https://adenenergies.com", "browser": "edge", "device": "desktop", "screenshot": "screenshots/adenenergies.com_edge_desktop_20240923_093518.png", "status": "Pass"}, {"url": "https://adenenergies.com", "browser": "edge", "device": "mobile", "screenshot": "screenshots/adenenergies.com_edge_mobile_20240923_093535.png", "status": "Pass"}]}];
+        const testResults = [{"timestamp": "2024-09-23 10:02:28", "results": [{"url": "https://adengroup.com", "browser": "chrome", "device": "desktop", "screenshot": "screenshots/adengroup.com_chrome_desktop_20240923_095735.png", "status": "Pass"}, {"url": "https://adengroup.com", "browser": "chrome", "device": "mobile", "screenshot": "screenshots/adengroup.com_chrome_mobile_20240923_095750.png", "status": "Pass"}, {"url": "https://adengroup.com", "browser": "firefox", "device": "desktop", "screenshot": "screenshots/adengroup.com_firefox_desktop_20240923_095807.png", "status": "Pass"}, {"url": "https://adengroup.com", "browser": "firefox", "device": "mobile", "screenshot": "screenshots/adengroup.com_firefox_mobile_20240923_095826.png", "status": "Pass"}, {"url": "https://adengroup.com", "browser": "edge", "device": "desktop", "screenshot": "screenshots/adengroup.com_edge_desktop_20240923_095855.png", "status": "Pass"}, {"url": "https://adengroup.com", "browser": "edge", "device": "mobile", "screenshot": "screenshots/adengroup.com_edge_mobile_20240923_095910.png", "status": "Pass"}, {"url": "https://nx-park.com", "browser": "chrome", "device": "desktop", "screenshot": "screenshots/nx-park.com_chrome_desktop_20240923_095926.png", "status": "Pass"}, {"url": "https://nx-park.com", "browser": "chrome", "device": "mobile", "screenshot": "screenshots/nx-park.com_chrome_mobile_20240923_095942.png", "status": "Pass"}, {"url": "https://nx-park.com", "browser": "firefox", "device": "desktop", "screenshot": "screenshots/nx-park.com_firefox_desktop_20240923_100000.png", "status": "Pass"}, {"url": "https://nx-park.com", "browser": "firefox", "device": "mobile", "screenshot": "screenshots/nx-park.com_firefox_mobile_20240923_100019.png", "status": "Pass"}, {"url": "https://nx-park.com", "browser": "edge", "device": "desktop", "screenshot": "screenshots/nx-park.com_edge_desktop_20240923_100035.png", "status": "Pass"}, {"url": "https://nx-park.com", "browser": "edge", "device": "mobile", "screenshot": "screenshots/nx-park.com_edge_mobile_20240923_100053.png", "status": "Pass"}, {"url": "https://adenenergies.com", "browser": "chrome", "device": "desktop", "screenshot": "screenshots/adenenergies.com_chrome_desktop_20240923_100108.png", "status": "Pass"}, {"url": "https://adenenergies.com", "browser": "chrome", "device": "mobile", "screenshot": "screenshots/adenenergies.com_chrome_mobile_20240923_100124.png", "status": "Pass"}, {"url": "https://adenenergies.com", "browser": "firefox", "device": "desktop", "screenshot": "screenshots/adenenergies.com_firefox_desktop_20240923_100138.png", "status": "Pass"}, {"url": "https://adenenergies.com", "browser": "firefox", "device": "mobile", "screenshot": "screenshots/adenenergies.com_firefox_mobile_20240923_100155.png", "status": "Pass"}, {"url": "https://adenenergies.com", "browser": "edge", "device": "desktop", "screenshot": "screenshots/adenenergies.com_edge_desktop_20240923_100211.png", "status": "Pass"}, {"url": "https://adenenergies.com", "browser": "edge", "device": "mobile", "screenshot": "screenshots/adenenergies.com_edge_mobile_20240923_100227.png", "status": "Pass"}]}];
 
         function createTable(results) {
             const urls = [...new Set(results.map(r => r.url))];
