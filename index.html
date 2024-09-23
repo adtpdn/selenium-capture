@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selenium Test Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .thumbnail {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        #modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+        #modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 1200px;
+        }
+        #modal-close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Selenium Test Results</h1>
+    <div id="results"></div>
+    <h2>Screenshots</h2>
+    <div id="gallery" class="gallery"></div>
+    <div id="modal">
+        <span id="modal-close">&times;</span>
+        <img id="modal-content">
+    </div>
+
+    <script>
+        async function loadResults() {
+            const response = await fetch('https://api.github.com/repos/adtpdn/selenium-capture/contents/results_');
+            const files = await response.json();
+            const resultFiles = files.filter(file => file.name.startsWith('results_') && file.name.endsWith('.json'));
+            
+            let allResults = [];
+            for (const file of resultFiles) {
+                const resultResponse = await fetch(file.download_url);
+                const resultData = await resultResponse.json();
+                allResults.push(resultData);
+            }
+            
+            allResults.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+            
+            const resultsDiv = document.getElementById('results');
+            const galleryDiv = document.getElementById('gallery');
+            
+            allResults.forEach(result => {
+                const table = document.createElement('table');
+                table.innerHTML = `
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>URL</th>
+                        <th>Browser</th>
+                        <th>Device</th>
+                        <th>Status</th>
+                    </tr>
+                `;
+                
+                result.results.forEach(test => {
+                    const row = table.insertRow();
+                    row.innerHTML = `
+                        <td>${result.timestamp}</td>
+                        <td>${test.url}</td>
+                        <td>${test.browser}</td>
+                        <td>${test.device_type}</td>
+                        <td>${test.status}</td>
+                    `;
+                });
+                
+                resultsDiv.appendChild(table);
+                
+                result.screenshots.forEach(screenshot => {
+                    const img = document.createElement('img');
+                    img.src = screenshot;
+                    img.alt = screenshot;
+                    img.classList.add('thumbnail');
+                    img.onclick = () => openModal(screenshot);
+                    galleryDiv.appendChild(img);
+                });
+            });
+        }
+
+        function openModal(imageSrc) {
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modal-content');
+            modal.style.display = 'block';
+            modalImg.src = imageSrc;
+        }
+
+        document.getElementById('modal-close').onclick = function() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        loadResults();
+    </script>
+</body>
+</html>
