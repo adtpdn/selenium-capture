@@ -34,37 +34,50 @@ devices = [
 def setup_driver(browser, device):
     if browser["name"] == "chrome":
         options = webdriver.ChromeOptions()
+        options.add_argument(f"--window-size={device['width']},{device['height']}")
     elif browser["name"] == "firefox":
         options = webdriver.FirefoxOptions()
+        options.add_argument(f"--width={device['width']}")
+        options.add_argument(f"--height={device['height']}")
     elif browser["name"] == "edge":
         options = webdriver.EdgeOptions()
+        options.add_argument(f"--window-size={device['width']},{device['height']}")
     
-    options.add_argument(f"--window-size={device['width']},{device['height']}")
     options.add_argument("--headless")
     
     if browser["name"] == "chrome":
-        return webdriver.Chrome(options=options)
+        driver = webdriver.Chrome(options=options)
     elif browser["name"] == "firefox":
-        return webdriver.Firefox(options=options)
+        driver = webdriver.Firefox(options=options)
     elif browser["name"] == "edge":
-        return webdriver.Edge(options=options)
+        driver = webdriver.Edge(options=options)
+    
+    # Set viewport size for Firefox
+    if browser["name"] == "firefox":
+        driver.set_window_size(device['width'], device['height'])
+    
+    return driver
 
 def capture_full_page_screenshot(driver, url, browser, device):
     driver.get(url)
     
     # Wait for the page to load
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+    WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+    
+    # Additional wait to ensure dynamic content is loaded
+    time.sleep(5)
+    
+    # Get the total height of the page
+    total_height = driver.execute_script("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );")
+    
+    # Set the window size to capture the full page
+    driver.set_window_size(device['width'], total_height)
     
     # Scroll to capture full page
-    total_height = driver.execute_script("return document.body.scrollHeight")
-    viewport_height = driver.execute_script("return window.innerHeight")
-    
-    for i in range(0, total_height, viewport_height):
-        driver.execute_script(f"window.scrollTo(0, {i})")
-        time.sleep(0.5)
-    
-    # Scroll back to top
-    driver.execute_script("window.scrollTo(0, 0)")
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(2)
+    driver.execute_script("window.scrollTo(0, 0);")
+    time.sleep(2)
     
     # Take screenshot
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
