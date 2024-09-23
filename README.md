@@ -1,28 +1,22 @@
-# Selenium URL Testing with GitHub Actions
+# Selenium Capture
 
-This repository contains a Selenium test suite that checks multiple URLs across different browsers and device types. The tests are run automatically using GitHub Actions, and the results are published to GitHub Pages.
+This repository contains automated Selenium test results for various websites across different browsers and devices.
 
-## Test Results
+## Latest Results
 
-You can view the latest test results and screenshots on our [GitHub Pages site](https://yourusername.github.io/your-repo-name/).
+Check out the [latest test results](https://adtpdn.github.io/selenium-capture) on our GitHub Pages site.
 
-The page includes:
-- A table of historical test results
-- A gallery of screenshots that can be clicked to view full-size
+## Test Configuration
+
+- Browsers: Chrome, Firefox, Edge
+- Devices: Desktop (1920x1080), Mobile (375x812)
 
 ## Running Tests Locally
 
-To run the tests locally:
-
 1. Clone this repository
-2. Install the required dependencies
-3. Install the necessary browser drivers (Chrome, Firefox, Edge, Safari)
-4. Run the tests
+2. Install dependencies: `pip install -r requirements.txt`
+3. Run the tests: `python selenium_tests.py`
 
-## Modifying the Test Suite
+## Automated Testing
 
-To modify the URLs being tested, edit the `urls` list in `tests/test_urls.py`.
-
-## GitHub Actions Workflow
-
-The tests are automatically run on push to the `main` branch, on pull requests to the `main` branch, and daily at midnight UTC. You can modify this schedule by editing the `.github/workflows/selenium_test.yml` file.
+Tests are automatically run daily at midnight UTC using GitHub Actions. Results are updated on the GitHub Pages site.

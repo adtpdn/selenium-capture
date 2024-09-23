@@ -11,13 +11,14 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    
     steps:
     - uses: actions/checkout@v2
     
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        python-version: '3.9'
     
     - name: Install dependencies
       run: |
@@ -28,25 +29,19 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y chromium-browser firefox
-        wget https://github.com/microsoft/playwright/releases/download/v1.31.0/ms-playwright-1.31.0-linux-bionic-amd64.deb
-        sudo apt-get install -y ./ms-playwright-1.31.0-linux-bionic-amd64.deb
-        sudo npx playwright install-deps
+        wget https://github.com/microsoft/edge-selenium-tools/releases/download/v3.141.0/edgedriver_linux64.zip
+        unzip edgedriver_linux64.zip
+        sudo mv msedgedriver /usr/bin/
     
     - name: Run Selenium tests
-      run: python tests/test_urls.py
-    
-    - name: Upload screenshots
-      uses: actions/upload-artifact@v2
-      with:
-        name: screenshots
-        path: screenshots
+      run: python selenium_tests.py
     
     - name: Update GitHub Pages
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add screenshots results_*.json
-        git commit -m "Update test results and screenshots" || echo "No changes to commit"
+        git add screenshots report.md
+        git commit -m "Update test results" || echo "No changes to commit"
         git push
     
     - name: Deploy to GitHub Pages
@@ -54,4 +49,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: .
-        publish_branch: gh-pages

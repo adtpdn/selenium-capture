@@ -10,28 +10,14 @@
             line-height: 1.6;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f4;
         }
-        h1, h2 {
+        h1 {
             color: #333;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
         }
         .gallery {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 20px;
         }
         .thumbnail {
             width: 200px;
@@ -39,7 +25,7 @@
             object-fit: cover;
             cursor: pointer;
         }
-        #modal {
+        .modal {
             display: none;
             position: fixed;
             z-index: 1;
@@ -50,13 +36,13 @@
             overflow: auto;
             background-color: rgba(0,0,0,0.9);
         }
-        #modal-content {
+        .modal-content {
             margin: auto;
             display: block;
-            width: 80%;
-            max-width: 1200px;
+            max-width: 90%;
+            max-height: 90%;
         }
-        #modal-close {
+        .close {
             position: absolute;
             top: 15px;
             right: 35px;
@@ -69,80 +55,42 @@
 </head>
 <body>
     <h1>Selenium Test Results</h1>
-    <div id="results"></div>
-    <h2>Screenshots</h2>
     <div id="gallery" class="gallery"></div>
-    <div id="modal">
-        <span id="modal-close">&times;</span>
-        <img id="modal-content">
+    <div id="modal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImg">
     </div>
 
     <script>
-        async function loadResults() {
-            const response = await fetch('https://api.github.com/repos/adtpdn/selenium-capture/contents/results_');
-            const files = await response.json();
-            const resultFiles = files.filter(file => file.name.startsWith('results_') && file.name.endsWith('.json'));
-            
-            let allResults = [];
-            for (const file of resultFiles) {
-                const resultResponse = await fetch(file.download_url);
-                const resultData = await resultResponse.json();
-                allResults.push(resultData);
+        async function loadReport() {
+            const response = await fetch('report.md');
+            const text = await response.text();
+            const gallery = document.getElementById('gallery');
+            const imgRegex = /!\[Screenshot\]\((.*?)\)/g;
+            let match;
+            while ((match = imgRegex.exec(text)) !== null) {
+                const img = document.createElement('img');
+                img.src = match[1];
+                img.className = 'thumbnail';
+                img.onclick = function() {
+                    document.getElementById('modal').style.display = 'block';
+                    document.getElementById('modalImg').src = this.src;
+                }
+                gallery.appendChild(img);
             }
-            
-            allResults.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
-            
-            const resultsDiv = document.getElementById('results');
-            const galleryDiv = document.getElementById('gallery');
-            
-            allResults.forEach(result => {
-                const table = document.createElement('table');
-                table.innerHTML = `
-                    <tr>
-                        <th>Timestamp</th>
-                        <th>URL</th>
-                        <th>Browser</th>
-                        <th>Device</th>
-                        <th>Status</th>
-                    </tr>
-                `;
-                
-                result.results.forEach(test => {
-                    const row = table.insertRow();
-                    row.innerHTML = `
-                        <td>${result.timestamp}</td>
-                        <td>${test.url}</td>
-                        <td>${test.browser}</td>
-                        <td>${test.device_type}</td>
-                        <td>${test.status}</td>
-                    `;
-                });
-                
-                resultsDiv.appendChild(table);
-                
-                result.screenshots.forEach(screenshot => {
-                    const img = document.createElement('img');
-                    img.src = screenshot;
-                    img.alt = screenshot;
-                    img.classList.add('thumbnail');
-                    img.onclick = () => openModal(screenshot);
-                    galleryDiv.appendChild(img);
-                });
-            });
         }
 
-        function openModal(imageSrc) {
-            const modal = document.getElementById('modal');
-            const modalImg = document.getElementById('modal-content');
-            modal.style.display = 'block';
-            modalImg.src = imageSrc;
-        }
-
-        document.getElementById('modal-close').onclick = function() {
+        document.querySelector('.close').onclick = function() {
             document.getElementById('modal').style.display = 'none';
         }
 
-        loadResults();
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('modal')) {
+                document.getElementById('modal').style.display = 'none';
+            }
+        }
+
+        loadReport();
     </script>
 </body>
 </html>
