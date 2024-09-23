@@ -155,12 +155,13 @@ def generate_html_report(results):
             font-family: Arial, sans-serif;
             line-height: 1.6;
             color: #333;
-            max-width: 1200px;
+            width: 70%;
             margin: 0 auto;
-            padding: 20px;
+            padding: 50px;
         }
         h1, h2 {
             text-align: center;
+            margin-bottom: 30px;
         }
         table {
             width: 100%;
@@ -170,15 +171,17 @@ def generate_html_report(results):
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
-            text-align: left;
+            text-align: center;
         }
         th {
             background-color: #f2f2f2;
+            text-align: center;
         }
         .screenshot {
-            width: 200px;
-            height: auto;
+            width: 100px;
+            height: 100px;
             cursor: pointer;
+            object-fit: cover;
         }
         .modal {
             display: none;
