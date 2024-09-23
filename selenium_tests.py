@@ -159,7 +159,7 @@ def generate_html_report(results):
             display: none;
             position: fixed;
             z-index: 1;
-            padding-top: 100px;
+            padding-top: 50px;
             left: 0;
             top: 0;
             width: 100%;
@@ -170,8 +170,8 @@ def generate_html_report(results):
         .modal-content {
             margin: auto;
             display: block;
-            width: 80%;
-            max-width: 700px;
+            max-width: 90%;
+            max-height: 90%;
         }
         .close {
             position: absolute;
@@ -188,14 +188,6 @@ def generate_html_report(results):
             text-decoration: none;
             cursor: pointer;
         }
-        #zoomControls {
-            text-align: center;
-            margin-top: 10px;
-        }
-        #zoomControls button {
-            font-size: 18px;
-            margin: 0 10px;
-        }
     </style>
 </head>
 <body>
@@ -205,10 +197,6 @@ def generate_html_report(results):
     <div id="myModal" class="modal">
         <span class="close">&times;</span>
         <img class="modal-content" id="modalImg">
-        <div id="zoomControls">
-            <button id="zoomIn">+</button>
-            <button id="zoomOut">-</button>
-        </div>
     </div>
 
     <script>
@@ -259,29 +247,88 @@ def generate_html_report(results):
         const modal = document.getElementById("myModal");
         const modalImg = document.getElementById("modalImg");
         const closeBtn = document.getElementsByClassName("close")[0];
-        const zoomInBtn = document.getElementById("zoomIn");
-        const zoomOutBtn = document.getElementById("zoomOut");
-        let zoomLevel = 1;
+        let scale = 1;
+        let panning = false;
+        let pointX = 0;
+        let pointY = 0;
+        let start = { x: 0, y: 0 };
 
         function openModal(imgSrc) {
             modal.style.display = "block";
             modalImg.src = imgSrc;
-            zoomLevel = 1;
-            modalImg.style.transform = `scale(${zoomLevel})`;
+            scale = 1;
+            modalImg.style.transform = `scale(${scale})`;
         }
 
         closeBtn.onclick = function() {
             modal.style.display = "none";
         }
 
-        zoomInBtn.onclick = function() {
-            zoomLevel += 0.1;
-            modalImg.style.transform = `scale(${zoomLevel})`;
+        modalImg.onmousedown = function(e) {
+            e.preventDefault();
+            start = { x: e.clientX - pointX, y: e.clientY - pointY };
+            panning = true;
         }
 
-        zoomOutBtn.onclick = function() {
-            zoomLevel = Math.max(0.1, zoomLevel - 0.1);
-            modalImg.style.transform = `scale(${zoomLevel})`;
+        modalImg.onmouseup = function(e) {
+            panning = false;
+        }
+
+        modalImg.onmousemove = function(e) {
+            e.preventDefault();
+            if (!panning) {
+                return;
+            }
+            pointX = (e.clientX - start.x);
+            pointY = (e.clientY - start.y);
+            modalImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+        }
+
+        modalImg.onwheel = function(e) {
+            e.preventDefault();
+            let xs = (e.clientX - pointX) / scale;
+            let ys = (e.clientY - pointY) / scale;
+            let delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
+            (delta > 0) ? (scale *= 1.2) : (scale /= 1.2);
+            pointX = e.clientX - xs * scale;
+            pointY = e.clientY - ys * scale;
+
+            modalImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+        }
+
+        // Touch events for mobile pinch zoom
+        let evCache = [];
+        let prevDiff = -1;
+
+        modalImg.ontouchstart = function(e) {
+            e.preventDefault();
+            for (let i = 0; i < e.touches.length; i++) {
+                evCache.push(e.touches[i]);
+            }
+        }
+
+        modalImg.ontouchmove = function(e) {
+            e.preventDefault();
+            if (e.touches.length === 2) {
+                let curDiff = Math.abs(e.touches[0].clientX - e.touches[1].clientX);
+
+                if (prevDiff > 0) {
+                    if (curDiff > prevDiff) {
+                        scale *= 1.02;
+                    }
+                    if (curDiff < prevDiff) {
+                        scale /= 1.02;
+                    }
+                    modalImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+                }
+
+                prevDiff = curDiff;
+            }
+        }
+
+        modalImg.ontouchend = function(e) {
+            evCache = [];
+            prevDiff = -1;
         }
 
         // Initial render
