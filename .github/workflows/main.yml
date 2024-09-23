@@ -39,27 +39,6 @@ jobs:
         sudo rm microsoft.gpg
         sudo apt update && sudo apt install microsoft-edge-dev
     
-    - name: Install browser drivers
-      run: |
-        python - <<EOF
-        from selenium import webdriver
-        from webdriver_manager.chrome import ChromeDriverManager
-        from webdriver_manager.firefox import GeckoDriverManager
-        from webdriver_manager.microsoft import EdgeChromiumDriverManager
-          
-        # Install ChromeDriver
-        ChromeDriverManager().install()
-          
-        # Install GeckoDriver (Firefox)
-        GeckoDriverManager().install()
-          
-        # Install EdgeDriver
-        EdgeChromiumDriverManager().install()
-          
-        print("All drivers installed successfully!")
-        EOF
-      shell: bash
-    
     - name: Run Selenium tests
       run: python selenium_tests.py
     
