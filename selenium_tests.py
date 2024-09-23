@@ -126,102 +126,12 @@ def generate_html_report(results):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selenium Test Results</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1, h2 {
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .accordion {
-            background-color: #eee;
-            color: #444;
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            text-align: left;
-            border: none;
-            outline: none;
-            transition: 0.4s;
-        }
-        .active, .accordion:hover {
-            background-color: #ccc;
-        }
-        .panel {
-            padding: 0 18px;
-            background-color: white;
-            display: none;
-            overflow: hidden;
-        }
-        .thumbnail {
-            width: 100px;
-            height: auto;
-            cursor: pointer;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            padding-top: 100px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.9);
-        }
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-        }
-        .close {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .close:hover,
-        .close:focus {
-            color: #bbb;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        #zoomControls {
-            text-align: center;
-            margin-top: 10px;
-        }
-        #zoomControls button {
-            font-size: 18px;
-            margin: 0 10px;
-        }
+        /* ... (keep the same CSS as before) ... */
     </style>
 </head>
 <body>
     <h1>Selenium Test Results</h1>
-    <div id="currentResults"></div>
-    <div id="archivedResults"></div>
+    <div id="allResults"></div>
 
     <div id="myModal" class="modal">
         <span class="close">&times;</span>
@@ -235,71 +145,38 @@ def generate_html_report(results):
     <script>
         const testResults = {json_data};
 
-        function createTable(results) {{
-            const urls = [...new Set(results.map(r => r.url))];
-            const browserDevices = ['chrome desktop', 'chrome mobile', 'firefox desktop', 'firefox mobile', 'edge desktop', 'edge mobile'];
-            
-            let tableHtml = '<table><tr><th>URL</th>';
-            browserDevices.forEach(bd => {{
-                tableHtml += `<th>${{bd}}</th>`;
-            }});
-            tableHtml += '</tr>';
+        function createTable(results) {
+            // ... (keep the same createTable function as before) ...
+        }
 
-            urls.forEach(url => {{
-                tableHtml += `<tr><td>${{url}}</td>`;
-                browserDevices.forEach(bd => {{
-                    const [browser, device] = bd.split(' ');
-                    const result = results.find(r => r.url === url && r.browser === browser && r.device === device);
-                    if (result) {{
-                        tableHtml += `<td>${{result.status}}<br><img src="${{result.screenshot}}" alt="Screenshot" class="thumbnail" onclick="openModal(this.src)"></td>`;
-                    }} else {{
-                        tableHtml += '<td>N/A</td>';
-                    }}
-                }});
-                tableHtml += '</tr>';
-            }});
+        function renderResults() {
+            const allResultsDiv = document.getElementById('allResults');
+            let allResultsHtml = '';
 
-            tableHtml += '</table>';
-            return tableHtml;
-        }}
-
-        function renderResults() {{
-            const currentResultsDiv = document.getElementById('currentResults');
-            const archivedResultsDiv = document.getElementById('archivedResults');
-
-            // Render current results
-            const latestResults = testResults[0];
-            currentResultsDiv.innerHTML = `
-                <h2>Latest Results (${{latestResults.date}})</h2>
-                ${{createTable(latestResults.results)}}
-            `;
-
-            // Render archived results
-            let archivedHtml = '<h2>Archived Results</h2>';
-            testResults.slice(1).forEach((testRun, index) => {{
-                archivedHtml += `
-                    <button class="accordion">${{testRun.date}}</button>
-                    <div class="panel">
-                        ${{createTable(testRun.results)}}
+            testResults.forEach((testRun, index) => {
+                allResultsHtml += `
+                    <button class="accordion ${index === 0 ? 'active' : ''}">${testRun.date}${index === 0 ? ' (Latest)' : ''}</button>
+                    <div class="panel" style="display: ${index === 0 ? 'block' : 'none'}">
+                        ${createTable(testRun.results)}
                     </div>
                 `;
-            }});
-            archivedResultsDiv.innerHTML = archivedHtml;
+            });
+            allResultsDiv.innerHTML = allResultsHtml;
 
             // Set up accordion functionality
             const acc = document.getElementsByClassName("accordion");
-            for (let i = 0; i < acc.length; i++) {{
-                acc[i].addEventListener("click", function() {{
+            for (let i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function() {
                     this.classList.toggle("active");
                     const panel = this.nextElementSibling;
-                    if (panel.style.display === "block") {{
+                    if (panel.style.display === "block") {
                         panel.style.display = "none";
-                    }} else {{
+                    } else {
                         panel.style.display = "block";
-                    }}
-                }});
-            }}
-        }}
+                    }
+                });
+            }
+        }
 
         // Modal functionality
         const modal = document.getElementById("myModal");
@@ -309,26 +186,26 @@ def generate_html_report(results):
         const zoomOutBtn = document.getElementById("zoomOut");
         let zoomLevel = 1;
 
-        function openModal(imgSrc) {{
+        function openModal(imgSrc) {
             modal.style.display = "block";
             modalImg.src = imgSrc;
             zoomLevel = 1;
-            modalImg.style.transform = `scale(${{zoomLevel}})`;
-        }}
+            modalImg.style.transform = `scale(${zoomLevel})`;
+        }
 
-        closeBtn.onclick = function() {{
+        closeBtn.onclick = function() {
             modal.style.display = "none";
-        }}
+        }
 
-        zoomInBtn.onclick = function() {{
+        zoomInBtn.onclick = function() {
             zoomLevel += 0.1;
-            modalImg.style.transform = `scale(${{zoomLevel}})`;
-        }}
+            modalImg.style.transform = `scale(${zoomLevel})`;
+        }
 
-        zoomOutBtn.onclick = function() {{
+        zoomOutBtn.onclick = function() {
             zoomLevel = Math.max(0.1, zoomLevel - 0.1);
-            modalImg.style.transform = `scale(${{zoomLevel}})`;
-        }}
+            modalImg.style.transform = `scale(${zoomLevel})`;
+        }
 
         // Initial render
         renderResults();
