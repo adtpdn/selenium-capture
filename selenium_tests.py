@@ -101,7 +101,7 @@ def run_tests():
     return results
 
 def generate_html_report(results):
-    current_date = datetime.now().strftime("%Y-%m-%d")
+    current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     # Load existing results
     if os.path.exists('test_results.json'):
@@ -111,7 +111,7 @@ def generate_html_report(results):
         all_results = []
     
     # Add new results
-    all_results.insert(0, {"date": current_date, "results": results})
+    all_results.insert(0, {"timestamp": current_date, "results": results})
     
     # Save all results
     with open('test_results.json', 'w') as f:
@@ -126,12 +126,81 @@ def generate_html_report(results):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selenium Test Results</title>
     <style>
-        /* ... (keep the same CSS as before) ... */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .screenshot {
+            width: 200px;
+            height: auto;
+            cursor: pointer;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #zoomControls {
+            text-align: center;
+            margin-top: 10px;
+        }
+        #zoomControls button {
+            font-size: 18px;
+            margin: 0 10px;
+        }
     </style>
 </head>
 <body>
     <h1>Selenium Test Results</h1>
-    <div id="allResults"></div>
+    <div id="testResults"></div>
 
     <div id="myModal" class="modal">
         <span class="close">&times;</span>
@@ -146,36 +215,44 @@ def generate_html_report(results):
         const testResults = {json_data};
 
         function createTable(results) {
-            // ... (keep the same createTable function as before) ...
+            const urls = [...new Set(results.map(r => r.url))];
+            const browserDevices = ['chrome desktop', 'chrome mobile', 'firefox desktop', 'firefox mobile', 'edge desktop', 'edge mobile'];
+            
+            let tableHtml = '<table><tr><th>URL</th>';
+            browserDevices.forEach(bd => {
+                tableHtml += `<th>${bd}</th>`;
+            });
+            tableHtml += '</tr>';
+
+            urls.forEach(url => {
+                tableHtml += `<tr><td>${url}</td>`;
+                browserDevices.forEach(bd => {
+                    const [browser, device] = bd.split(' ');
+                    const result = results.find(r => r.url === url && r.browser === browser && r.device === device);
+                    if (result) {
+                        tableHtml += `<td><img src="${result.screenshot}" alt="Screenshot" class="screenshot" onclick="openModal(this.src)"></td>`;
+                    } else {
+                        tableHtml += '<td>N/A</td>';
+                    }
+                });
+                tableHtml += '</tr>';
+            });
+
+            tableHtml += '</table>';
+            return tableHtml;
         }
 
         function renderResults() {
-            const allResultsDiv = document.getElementById('allResults');
-            let allResultsHtml = '';
+            const testResultsDiv = document.getElementById('testResults');
+            let resultsHtml = '';
 
             testResults.forEach((testRun, index) => {
-                allResultsHtml += `
-                    <button class="accordion ${index === 0 ? 'active' : ''}">${testRun.date}${index === 0 ? ' (Latest)' : ''}</button>
-                    <div class="panel" style="display: ${index === 0 ? 'block' : 'none'}">
-                        ${createTable(testRun.results)}
-                    </div>
+                resultsHtml += `
+                    <h2>${testRun.timestamp}${index === 0 ? ' (Latest)' : ''}</h2>
+                    ${createTable(testRun.results)}
                 `;
             });
-            allResultsDiv.innerHTML = allResultsHtml;
-
-            // Set up accordion functionality
-            const acc = document.getElementsByClassName("accordion");
-            for (let i = 0; i < acc.length; i++) {
-                acc[i].addEventListener("click", function() {
-                    this.classList.toggle("active");
-                    const panel = this.nextElementSibling;
-                    if (panel.style.display === "block") {
-                        panel.style.display = "none";
-                    } else {
-                        panel.style.display = "block";
-                    }
-                });
-            }
+            testResultsDiv.innerHTML = resultsHtml;
         }
 
         // Modal functionality
