@@ -52,9 +52,8 @@ def setup_driver(browser, device):
     elif browser["name"] == "edge":
         driver = webdriver.Edge(options=options)
     
-    # Set viewport size for Firefox
-    if browser["name"] == "firefox":
-        driver.set_window_size(device['width'], device['height'])
+    # Set initial viewport size
+    driver.set_window_size(device['width'], device['height'])
     
     return driver
 
@@ -67,22 +66,34 @@ def capture_full_page_screenshot(driver, url, browser, device):
     # Additional wait to ensure dynamic content is loaded
     time.sleep(5)
     
-    # Get the total height of the page
-    total_height = driver.execute_script("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );")
-    
-    # Set the window size to capture the full page
-    driver.set_window_size(device['width'], total_height)
-    
-    # Scroll to capture full page
+    # Scroll to bottom and back to top to ensure all content is loaded
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     time.sleep(2)
     driver.execute_script("window.scrollTo(0, 0);")
     time.sleep(2)
     
+    # Get full page height using document.body.parentNode.scrollHeight
+    full_page_height = driver.execute_script("return document.body.parentNode.scrollHeight;")
+    
+    # Add a small buffer to the height (e.g., 100 pixels)
+    new_height = full_page_height + 100
+    
+    # Set new window size
+    driver.set_window_size(device['width'], new_height)
+    
+    # Scroll to top
+    driver.execute_script("window.scrollTo(0, 0);")
+    
     # Take screenshot
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"screenshots/{url.replace('https://', '').replace('/', '_')}_{browser['name']}_{device['name']}_{timestamp}.png"
+    
+    # Save screenshot
     driver.save_screenshot(filename)
+    
+    # Reset window size to original device dimensions
+    driver.set_window_size(device['width'], device['height'])
+    
     return filename
 
 def run_tests():
