@@ -1,0 +1,57 @@
+name: Selenium Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *'  # Run daily at midnight UTC
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Install browser drivers
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y chromium-browser firefox
+        wget https://github.com/microsoft/playwright/releases/download/v1.31.0/ms-playwright-1.31.0-linux-bionic-amd64.deb
+        sudo apt-get install -y ./ms-playwright-1.31.0-linux-bionic-amd64.deb
+        sudo npx playwright install-deps
+    
+    - name: Run Selenium tests
+      run: python tests/test_urls.py
+    
+    - name: Upload screenshots
+      uses: actions/upload-artifact@v2
+      with:
+        name: screenshots
+        path: screenshots
+    
+    - name: Update GitHub Pages
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add screenshots results_*.json
+        git commit -m "Update test results and screenshots" || echo "No changes to commit"
+        git push
+    
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: .
+        publish_branch: gh-pages
