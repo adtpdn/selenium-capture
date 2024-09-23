@@ -28,7 +28,7 @@ browsers = [
 # Device configurations
 devices = [
     {"name": "desktop", "width": 1920, "height": 1080},
-    {"name": "mobile", "width": 375, "height": 812}
+    {"name": "mobile", "width": 360, "height": 740}
 ]
 
 def setup_driver(browser, device):
@@ -149,7 +149,7 @@ def generate_html_report(results):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selenium Test Results</title>
+    <title>Experimental Selenium Test Results</title>
     <style>
         body {
             font-family: Arial, sans-serif;
