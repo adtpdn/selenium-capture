@@ -49,9 +49,10 @@ jobs:
         sudo mv chromedriver /usr/local/bin/
         
         # Firefox driver (geckodriver)
-        GECKODRIVER_VERSION=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep tag_name | cut -d '"' -f 4)
-        wget https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
-        tar -xvzf geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
+        GECKODRIVER_VERSION=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+        GECKODRIVER_URL="https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz"
+        wget "$GECKODRIVER_URL"
+        tar -xvzf "geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz"
         sudo mv geckodriver /usr/local/bin/
         
         # Edge driver
