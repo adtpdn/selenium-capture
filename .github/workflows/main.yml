@@ -41,26 +41,23 @@ jobs:
     
     - name: Install browser drivers
       run: |
-        # Chrome driver
-        CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d'.' -f1)
-        CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
-        curl -Lo chromedriver_linux64.zip "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
-        unzip chromedriver_linux64.zip
-        sudo mv chromedriver /usr/local/bin/
-
-        # Firefox driver (geckodriver)
-        GECKODRIVER_LATEST=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest)
-        GECKODRIVER_URL=$(echo "$GECKODRIVER_LATEST" | grep -o 'https://github.com/mozilla/geckodriver/releases/download/[^"]*linux64.tar.gz' | head -n 1)
-        curl -Lo geckodriver.tar.gz "$GECKODRIVER_URL"
-        tar -xvzf geckodriver.tar.gz
-        sudo mv geckodriver /usr/local/bin/
-
-        # Edge driver
-        EDGE_VERSION=$(microsoft-edge --version | awk '{print $3}' | cut -d'.' -f1)
-        EDGEDRIVER_VERSION=$(curl -s "https://msedgedriver.azureedge.net/LATEST_STABLE")
-        curl -Lo edgedriver_linux64.zip "https://msedgedriver.azureedge.net/$EDGEDRIVER_VERSION/edgedriver_linux64.zip"
-        unzip edgedriver_linux64.zip
-        sudo mv msedgedriver /usr/local/bin/
+        python - <<EOF
+        from selenium import webdriver
+        from webdriver_manager.chrome import ChromeDriverManager
+        from webdriver_manager.firefox import GeckoDriverManager
+        from webdriver_manager.microsoft import EdgeChromiumDriverManager
+          
+        # Install ChromeDriver
+        ChromeDriverManager().install()
+          
+        # Install GeckoDriver (Firefox)
+        GeckoDriverManager().install()
+          
+        # Install EdgeDriver
+        EdgeChromiumDriverManager().install()
+          
+        print("All drivers installed successfully!")
+        EOF
       shell: bash
     
     - name: Run Selenium tests
