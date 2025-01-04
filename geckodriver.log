@@ -1,16 +1,16 @@
-1735867326554	geckodriver	INFO	Listening on 127.0.0.1:46725
-1735867326848	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/opt ... ss" "--remote-debugging-port" "44997" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileNvaFvK"
+1735953531084	geckodriver	INFO	Listening on 127.0.0.1:40571
+1735953531581	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/opt ... ss" "--remote-debugging-port" "50203" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilerP21Du"
 *** You are running in headless mode.
 console.warn: services.settings: Ignoring preference override of remote settings server
 console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
 [GFX1-]: glxtest: Unable to open a connection to the X server
-1735867327207	Marionette	INFO	Marionette enabled
+1735953531787	Marionette	INFO	Marionette enabled
 console.error: "Warning: unrecognized command line flag" "-width"
 console.error: "Warning: unrecognized command line flag" "-height"
-1735867327287	Marionette	INFO	Listening on port 37483
-WebDriver BiDi listening on ws://127.0.0.1:44997
-Read port: 37483
-1735867327411	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1735953531868	Marionette	INFO	Listening on port 43517
+WebDriver BiDi listening on ws://127.0.0.1:50203
+Read port: 43517
+1735953531981	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
 [GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
 console.error: ({})
 JavaScript error: https://adengroup.com/wp-content/themes/Aden%20Group/js/script.js?ver=1.0, line 768: TypeError: cityMobile is null
@@ -19,20 +19,20 @@ JavaScript error: https://adengroup.com/wp-content/themes/Aden%20Group/js/script
 JavaScript error: https://adengroup.com/wp-content/themes/Aden%20Group/js/swiper.min.js?ver=6.7.1, line 12: TypeError: this.slides is undefined
 JavaScript error: https://adengroup.com/wp-content/themes/Aden%20Group/js/script.js?ver=1.0, line 772: TypeError: cityContents is undefined
 JavaScript error: https://adengroup.com/wp-content/themes/Aden%20Group/js/script.js?ver=1.0, line 772: TypeError: cityContents is undefined
-1735867342653	Marionette	INFO	Stopped listening on port 37483
-1735867343248	geckodriver	INFO	Listening on 127.0.0.1:50369
-1735867343752	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/opt ... ss" "--remote-debugging-port" "59729" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile5e3m17"
+1735953549788	Marionette	INFO	Stopped listening on port 43517
+1735953550380	geckodriver	INFO	Listening on 127.0.0.1:56247
+1735953550884	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/opt ... ss" "--remote-debugging-port" "46425" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileImiKo5"
 *** You are running in headless mode.
 console.warn: services.settings: Ignoring preference override of remote settings server
 console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
 [GFX1-]: glxtest: Unable to open a connection to the X server
-1735867343941	Marionette	INFO	Marionette enabled
+1735953551078	Marionette	INFO	Marionette enabled
 console.error: "Warning: unrecognized command line flag" "-width"
 console.error: "Warning: unrecognized command line flag" "-height"
-1735867344022	Marionette	INFO	Listening on port 36499
-WebDriver BiDi listening on ws://127.0.0.1:59729
-Read port: 36499
-1735867344142	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1735953551160	Marionette	INFO	Listening on port 44853
+WebDriver BiDi listening on ws://127.0.0.1:46425
+Read port: 44853
+1735953551283	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
 [GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
 console.error: ({})
 JavaScript error: https://adengroup.com/wp-content/themes/Aden%20Group/js/script.js?ver=1.0, line 768: TypeError: cityMobile is null
@@ -41,75 +41,72 @@ JavaScript error: https://adengroup.com/wp-content/themes/Aden%20Group/js/script
 JavaScript error: https://adengroup.com/wp-content/themes/Aden%20Group/js/swiper.min.js?ver=6.7.1, line 12: TypeError: this.slides is undefined
 JavaScript error: https://adengroup.com/wp-content/themes/Aden%20Group/js/script.js?ver=1.0, line 772: TypeError: cityContents is undefined
 JavaScript error: https://adengroup.com/wp-content/themes/Aden%20Group/js/script.js?ver=1.0, line 772: TypeError: cityContents is undefined
-1735867361635	Marionette	INFO	Stopped listening on port 36499
-1735867449533	geckodriver	INFO	Listening on 127.0.0.1:43159
-1735867450037	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/opt ... ss" "--remote-debugging-port" "56369" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilePAtb8E"
+1735953567263	Marionette	INFO	Stopped listening on port 44853
+1735953667421	geckodriver	INFO	Listening on 127.0.0.1:56229
+1735953667926	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/opt ... ss" "--remote-debugging-port" "33473" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileCh35CZ"
 *** You are running in headless mode.
 console.warn: services.settings: Ignoring preference override of remote settings server
 console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
 [GFX1-]: glxtest: Unable to open a connection to the X server
-1735867450232	Marionette	INFO	Marionette enabled
+1735953668120	Marionette	INFO	Marionette enabled
 console.error: "Warning: unrecognized command line flag" "-width"
 console.error: "Warning: unrecognized command line flag" "-height"
-1735867450299	Marionette	INFO	Listening on port 37283
-WebDriver BiDi listening on ws://127.0.0.1:56369
-Read port: 37283
-1735867450429	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1735953668201	Marionette	INFO	Listening on port 42575
+WebDriver BiDi listening on ws://127.0.0.1:33473
+Read port: 42575
+1735953668322	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
 [GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
 console.error: ({})
-[Child 5079, MediaDecoderStateMachine #1] WARNING: Decoder=7facebb71500 state=DECODING_METADATA Decode metadata failed, shutting down decoder: file /builds/worker/checkouts/gecko/dom/media/MediaDecoderStateMachine.cpp:372
-[Child 5079, MediaDecoderStateMachine #1] WARNING: Decoder=7facebb71500 Decode error: NS_ERROR_DOM_MEDIA_METADATA_ERR (0x806e0006): file /builds/worker/checkouts/gecko/dom/media/MediaDecoderStateMachineBase.cpp:168
-1735867468560	Marionette	INFO	Stopped listening on port 37283
-JavaScript warning: https://www.nx-park.com/wp-content/plugins/wp-smush-pro/app/assets/js/smush-lazy-load.min.js, line 1: Script terminated by timeout at:
-6879/N/n@https://www.nx-park.com/wp-content/plugins/wp-smush-pro/app/assets/js/smush-lazy-load.min.js:1:2311
-
-1735867469157	geckodriver	INFO	Listening on 127.0.0.1:35111
-1735867469161	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/opt ... ss" "--remote-debugging-port" "41799" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileZ99MfK"
+[Child 5044, MediaDecoderStateMachine #1] WARNING: Decoder=7f4b74fa6800 state=DECODING_METADATA Decode metadata failed, shutting down decoder: file /builds/worker/checkouts/gecko/dom/media/MediaDecoderStateMachine.cpp:372
+[Child 5044, MediaDecoderStateMachine #1] WARNING: Decoder=7f4b74fa6800 Decode error: NS_ERROR_DOM_MEDIA_METADATA_ERR (0x806e0006): file /builds/worker/checkouts/gecko/dom/media/MediaDecoderStateMachineBase.cpp:168
+1735953685955	Marionette	INFO	Stopped listening on port 42575
+1735953686550	geckodriver	INFO	Listening on 127.0.0.1:43557
+1735953687055	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/opt ... ss" "--remote-debugging-port" "59065" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile6N8RMI"
 *** You are running in headless mode.
 console.warn: services.settings: Ignoring preference override of remote settings server
 console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
 [GFX1-]: glxtest: Unable to open a connection to the X server
-1735867469352	Marionette	INFO	Marionette enabled
+1735953687252	Marionette	INFO	Marionette enabled
 console.error: "Warning: unrecognized command line flag" "-width"
 console.error: "Warning: unrecognized command line flag" "-height"
-1735867469418	Marionette	INFO	Listening on port 33567
-WebDriver BiDi listening on ws://127.0.0.1:41799
-Read port: 33567
-1735867469543	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1735953687336	Marionette	INFO	Listening on port 38355
+WebDriver BiDi listening on ws://127.0.0.1:59065
+Read port: 38355
+1735953687447	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
 [GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
 console.error: ({})
-[Child 5371, MediaDecoderStateMachine #1] WARNING: Decoder=7f9e63247a00 state=DECODING_METADATA Decode metadata failed, shutting down decoder: file /builds/worker/checkouts/gecko/dom/media/MediaDecoderStateMachine.cpp:372
-[Child 5371, MediaDecoderStateMachine #1] WARNING: Decoder=7f9e63247a00 Decode error: NS_ERROR_DOM_MEDIA_METADATA_ERR (0x806e0006): file /builds/worker/checkouts/gecko/dom/media/MediaDecoderStateMachineBase.cpp:168
-1735867487342	Marionette	INFO	Stopped listening on port 33567
-1735867550838	geckodriver	INFO	Listening on 127.0.0.1:60771
-1735867551342	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/opt ... ss" "--remote-debugging-port" "59005" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile2ijMUD"
+[Child 5337, MediaDecoderStateMachine #1] WARNING: Decoder=7f05f6616d00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - Error no decoder found for audio/mp4a-latm: file /builds/worker/checkouts/gecko/dom/media/MediaDecoderStateMachineBase.cpp:168
+[Child 5337, MediaDecoderStateMachine #1] WARNING: Decoder=7f05f6616d00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - Error no decoder found for video/avc: file /builds/worker/checkouts/gecko/dom/media/MediaDecoderStateMachineBase.cpp:168
+1735953706821	Marionette	INFO	Stopped listening on port 38355
+1735953769060	geckodriver	INFO	Listening on 127.0.0.1:36687
+1735953769565	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/opt ... ss" "--remote-debugging-port" "47691" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileYTP2e0"
 *** You are running in headless mode.
 console.warn: services.settings: Ignoring preference override of remote settings server
 console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
 [GFX1-]: glxtest: Unable to open a connection to the X server
-1735867551536	Marionette	INFO	Marionette enabled
+1735953769770	Marionette	INFO	Marionette enabled
 console.error: "Warning: unrecognized command line flag" "-width"
 console.error: "Warning: unrecognized command line flag" "-height"
-1735867551613	Marionette	INFO	Listening on port 35723
-WebDriver BiDi listening on ws://127.0.0.1:59005
-Read port: 35723
-1735867551733	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1735953769856	Marionette	INFO	Listening on port 41237
+WebDriver BiDi listening on ws://127.0.0.1:47691
+Read port: 41237
+1735953769908	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
 [GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
 console.error: ({})
-1735867569174	Marionette	INFO	Stopped listening on port 35723
-1735867569767	geckodriver	INFO	Listening on 127.0.0.1:56335
-1735867570271	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/opt ... ss" "--remote-debugging-port" "51849" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileYuCvh5"
+1735953786558	Marionette	INFO	Stopped listening on port 41237
+1735953787154	geckodriver	INFO	Listening on 127.0.0.1:39981
+1735953787658	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/opt ... ss" "--remote-debugging-port" "54257" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileHH3CDy"
 *** You are running in headless mode.
 console.warn: services.settings: Ignoring preference override of remote settings server
 console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
 [GFX1-]: glxtest: Unable to open a connection to the X server
-1735867570461	Marionette	INFO	Marionette enabled
+1735953787857	Marionette	INFO	Marionette enabled
 console.error: "Warning: unrecognized command line flag" "-width"
 console.error: "Warning: unrecognized command line flag" "-height"
-1735867570537	Marionette	INFO	Listening on port 42171
-WebDriver BiDi listening on ws://127.0.0.1:51849
-Read port: 42171
-1735867570655	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1735953787937	Marionette	INFO	Listening on port 44291
+WebDriver BiDi listening on ws://127.0.0.1:54257
+Read port: 44291
+1735953788060	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
 [GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
 console.error: ({})
-1735867586033	Marionette	INFO	Stopped listening on port 42171
+1735953804210	Marionette	INFO	Stopped listening on port 44291
